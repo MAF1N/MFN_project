@@ -1,0 +1,12 @@
+<?php
+session_start();
+$mongo=new MongoClient('NoteThis.com');
+$email=$_POST["email"];
+$note=$_POST["note"];
+$db=$mongo->test;
+$userColl=$db->users->findOne(array("e-mail"=>$email));
+$id=$userColl["id"];
+$notes=$db->notes->remove(array("id"=>$id,"title"=>"newNoteTitle", "note"=>"new Note Created Sucessfully"));
+$mongo->close();
+header("Location: index.php");
+?>
